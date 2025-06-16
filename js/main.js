@@ -1,30 +1,5 @@
 // main.js
-document.getElementById('investment-test').addEventListener('submit', function(e) {
-  e.preventDefault(); // Evita recarga
 
-  // Obtener valores
-  const q1 = this.q1.value;
-  const q2 = this.q2.value;
-  const q3 = this.q3.value;
-  const q4 = this.q4.value;
-  const q5 = this.q5.value;
-
-  // Lógica ejemplo para resultado
-  let result = '';
-
-  if (q2 === 'riesgo' && q3 === 'largo') {
-    result = 'Ideal para inversiones en bolsa o criptomonedas, buscando alta rentabilidad a largo plazo.';
-  } else if (q2 === 'seguridad' && q4 === 'poco') {
-    result = 'Recomendamos fondos de inversión conservadores o depósitos a plazo.';
-  } else if (q5 === 'pasiva') {
-    result = 'Una cartera diversificada gestionada por profesionales podría ser adecuada para ti.';
-  } else {
-    result = 'Considera diversificar tu inversión según tu perfil de riesgo y tiempo.';
-  }
-
-  // Mostrar resultado
-  document.getElementById('result').textContent = result;
-});
 
 // Ejemplo: animación simple de puntos conectados en el canvas del header
 const canvas = document.querySelector('#network');
