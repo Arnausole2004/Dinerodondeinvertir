@@ -1,392 +1,635 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Guía para invertir: pasos iniciales y consejos</title>
+  <title>¿En qué debería invertir? - Test y Guía Completa</title>
 
-  <!-- Google Fonts + Iconos -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
 
-  <!-- AOS (Animate On Scroll) -->
+  <!-- FontAwesome para iconos -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous"
+  />
+
+  <!-- AOS para animaciones al hacer scroll -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" crossorigin="anonymous" />
 
-  <!-- Estilos propios -->
   <style>
     /* Reset básico */
     * {
-      margin: 0; padding: 0; box-sizing: border-box;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
-      background: #f5f5f5;
+      background: #fff7f0;
       color: #333;
       line-height: 1.6;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-    }
-    a {
-      text-decoration: none;
-      color: #2c7a7b;
-      font-weight: 600;
-    }
-    a:hover {
-      color: #285e61;
     }
 
-    /* HEADER principal */
-    header.tech-header {
-      position: relative;
-      width: 100%;
-      max-width: 1000px;
-      height: 250px;
+    h1,
+    h2,
+    h3 {
+      color: #ff6f3c;
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      text-align: center;
       margin-top: 2rem;
-      background: linear-gradient(135deg, #2c7a7b, #285e61);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+      font-weight: 400;
+      font-size: 1rem;
+      max-width: 720px;
+    }
+
+    /* Header con canvas */
+    .tech-header {
+      position: relative;
+      background: #ffb38a;
+      padding: 3rem 1rem 5rem;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+
+    .tech-header h1 {
       color: white;
+      z-index: 10;
+      position: relative;
+    }
+
+    #network {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 180px;
+      z-index: 1;
+      opacity: 0.25;
+      background: #ffb38a;
+    }
+
+    /* Navbar sticky horizontal */
+    header.navbar {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      border-bottom: 3px solid #ff6f3c;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      z-index: 20;
       display: flex;
       justify-content: center;
-      align-items: center;
-      text-align: center;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(40, 94, 97, 0.5);
-      padding: 0 1rem;
-    }
-    header.tech-header h1 {
-      font-weight: 700;
-      font-size: 2.4rem;
-      z-index: 2;
-      user-select: none;
-      line-height: 1.2;
-    }
-    header.tech-header canvas#network {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 1;
-      pointer-events: none;
+      padding: 0.6rem 0;
     }
 
-    /* Navbar */
-    header.navbar.horizontal {
-      width: 100%;
-      background: #285e61;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-      border-radius: 0 0 12px 12px;
-      margin-top: 1rem;
-      user-select: none;
-    }
     .nav-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0.7rem 1rem;
+      width: 90%;
+      max-width: 1200px;
     }
+
     nav.nav-links.horizontal {
       display: flex;
+      gap: 1.25rem;
       justify-content: center;
-      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    nav.nav-links.horizontal a.nav-link {
+      padding: 0.5rem 1rem;
       font-weight: 600;
-      font-size: 1rem;
-    }
-    nav.nav-links.horizontal a {
-      color: #e0f2f1;
-      padding: 0.3rem 0.5rem;
+      text-decoration: none;
+      color: #ff6f3c;
+      border: 2px solid transparent;
       border-radius: 6px;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+      font-size: 1rem;
+      background-color: #fff7f0;
+      box-shadow: 0 0 5px transparent;
     }
-    nav.nav-links.horizontal a:hover,
-    nav.nav-links.horizontal a:focus {
-      background: #1e4c4d;
+
+    nav.nav-links.horizontal a.nav-link:hover,
+    nav.nav-links.horizontal a.nav-link:focus {
+      background-color: #ff6f3c;
+      color: white;
+      border-color: #ff6f3c;
+      box-shadow: 0 4px 10px rgba(255, 111, 60, 0.4);
       outline: none;
     }
 
-    /* Main content */
-    main {
+    /* Secciones explicativas */
+    section.intro-section,
+    section.intro-continue {
+      padding: 2rem 1rem;
       max-width: 900px;
-      margin: 3rem auto 4rem;
-      padding: 0 1rem;
+      margin: 2rem auto;
       background: white;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      color: #333;
-    }
-    section {
-      margin-bottom: 3rem;
-    }
-    section h2 {
-      font-weight: 700;
-      font-size: 1.8rem;
-      color: #2c7a7b;
-      margin-bottom: 1rem;
-      user-select: none;
-    }
-    section.intro-section p {
-      font-size: 1rem;
-      margin-bottom: 1rem;
-    }
-    section.intro-section img {
-      width: 100%;
-      max-width: 600px;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-      display: block;
-      margin: 2rem auto 0;
-      user-select: none;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(255, 111, 60, 0.15);
+      transition: box-shadow 0.3s ease;
     }
 
-    /* Lista pasos */
-    section.intro-continue ul {
-      list-style: inside disc;
-      font-size: 1rem;
-      color: #334e4e;
-      margin-bottom: 1rem;
+    section.intro-section:focus,
+    section.intro-continue:focus {
+      outline: 3px solid #ff6f3c;
+      outline-offset: 3px;
+      box-shadow: 0 8px 30px rgba(255, 111, 60, 0.3);
     }
-    section.intro-continue ul li {
-      margin-bottom: 0.8rem;
+
+    /* Test interactivo */
+    section.test-section {
+      max-width: 900px;
+      margin: 3rem auto 5rem;
+      padding: 2rem 2rem 3rem;
+      background: #ffede3;
+      border-radius: 12px;
+      box-shadow: 0 5px 25px rgba(255, 111, 60, 0.25);
     }
-    section.intro-continue p {
+
+    section.test-section h2 {
+      margin-bottom: 2rem;
+      text-align: center;
+      color: #ff6f3c;
+    }
+
+    form#investment-test {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .question h3 {
       font-weight: 600;
-      color: #2c7a7b;
+      margin-bottom: 0.6rem;
+      color: #ff6f3c;
+    }
+
+    .question label {
+      display: block;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #5a3e23;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+      border: 2px solid transparent;
+      user-select: none;
+      margin-bottom: 0.3rem;
+    }
+
+    .question input[type='radio'] {
+      margin-right: 10px;
+      accent-color: #ff6f3c;
+      cursor: pointer;
+    }
+
+    /* Cambio visual al seleccionar la opción */
+    .question input[type='radio']:checked + label,
+    .question label:hover {
+      background-color: #ffb38a;
+      color: #663300;
+      border-color: #ff6f3c;
+    }
+
+    /* Botón */
+    button.btn-submit {
+      align-self: center;
+      padding: 0.8rem 3rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: white;
+      background: #ff6f3c;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(255, 111, 60, 0.6);
+      transition: background-color 0.3s ease;
+    }
+
+    button.btn-submit:hover,
+    button.btn-submit:focus {
+      background-color: #ff7a52;
+      outline: none;
+    }
+
+    /* Resultado */
+    #result {
+      margin-top: 2rem;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #d64900;
+      text-align: center;
+      min-height: 3rem;
+      font-family: monospace;
+      letter-spacing: 0.05em;
     }
 
     /* Contacto */
     section.contacto-simple {
-      background: #e0f2f1;
-      padding: 1.8rem 2rem;
+      max-width: 700px;
+      margin: 0 auto 4rem;
+      padding: 2rem 2rem 3rem;
+      background: white;
       border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(44, 122, 123, 0.25);
-      max-width: 600px;
-      margin: 0 auto 3rem;
-      user-select: none;
+      box-shadow: 0 5px 20px rgba(255, 111, 60, 0.15);
     }
-    .contacto-box {
+
+    section.contacto-simple h2 {
+      text-align: center;
+      color: #ff6f3c;
+      margin-bottom: 1.5rem;
+    }
+
+    form.contact-form {
       display: flex;
       flex-direction: column;
+      gap: 1.25rem;
     }
-    .contact-title {
-      font-weight: 700;
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
-      color: #285e61;
-      user-select: none;
-    }
+
     form.contact-form label {
-      margin-bottom: 0.3rem;
       font-weight: 600;
-      color: #285e61;
-      user-select: none;
+      color: #663300;
+      margin-bottom: 0.25rem;
     }
+
     form.contact-form input,
     form.contact-form textarea {
-      padding: 0.6rem 0.8rem;
-      margin-bottom: 1.2rem;
-      border-radius: 8px;
-      border: 1.8px solid #2c7a7b;
-      font-family: 'Poppins', sans-serif;
+      font-family: inherit;
       font-size: 1rem;
-      resize: vertical;
-      outline-offset: 2px;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      border: 2px solid #ffb38a;
       transition: border-color 0.3s ease;
+      resize: vertical;
     }
+
     form.contact-form input:focus,
     form.contact-form textarea:focus {
-      border-color: #1e4c4d;
+      border-color: #ff6f3c;
       outline: none;
+      box-shadow: 0 0 8px #ff6f3c88;
     }
-    form.contact-form textarea {
-      min-height: 100px;
-    }
+
     form.contact-form button {
-      background: #2c7a7b;
-      color: white;
+      width: 140px;
+      align-self: center;
+      padding: 0.7rem 0;
       font-weight: 700;
-      font-size: 1.1rem;
-      padding: 0.8rem 1.8rem;
+      color: white;
+      background: #ff6f3c;
       border: none;
-      border-radius: 10px;
+      border-radius: 30px;
       cursor: pointer;
-      user-select: none;
+      box-shadow: 0 6px 15px rgba(255, 111, 60, 0.6);
       transition: background-color 0.3s ease;
+      margin-top: 1rem;
     }
+
     form.contact-form button:hover,
     form.contact-form button:focus {
-      background: #1e4c4d;
+      background-color: #ff7a52;
       outline: none;
     }
 
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.8rem 1rem;
+      background: #ffb38a;
+      color: white;
+      font-weight: 600;
+      margin-top: auto;
+      user-select: none;
+    }
+
     /* Responsive */
-    @media (max-width: 640px) {
+    @media (max-width: 700px) {
       nav.nav-links.horizontal {
-        flex-wrap: wrap;
-        gap: 1rem;
+        gap: 0.8rem;
       }
-      main {
-        margin: 2rem 1rem 3rem;
-        padding: 1rem;
+
+      nav.nav-links.horizontal a.nav-link {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
       }
-      header.tech-header {
-        height: 200px;
-        font-size: 1.8rem;
+
+      section.test-section,
+      section.contacto-simple,
+      section.intro-section,
+      section.intro-continue {
+        margin: 1.5rem 1rem;
+        padding: 1.5rem 1.2rem;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+      }
+
+      h3 {
+        font-size: 1.2rem;
       }
     }
   </style>
 </head>
+
 <body>
 
-  <!-- HEADER PRINCIPAL -->
+  <!-- HEADER PRINCIPAL CON CANVAS -->
   <header class="tech-header" role="banner">
-    <h1>Guía para invertir: <br />pasos iniciales y consejos</h1>
-    <canvas id="network"></canvas>
+    <h1>¿En qué debería invertir?</h1>
+    <canvas id="network" aria-hidden="true"></canvas>
   </header>
 
-  <!-- NAVBAR -->
-  <header class="navbar horizontal" role="navigation" aria-label="Menú principal">
+  <!-- NAVBAR CON PREGUNTAS EXPLICATIVAS -->
+  <header class="navbar" role="navigation" aria-label="Menú de preguntas explicativas">
     <div class="nav-container">
-      <nav class="nav-links horizontal">
-        <a href="index.html">Inicio</a>
-        <a href="objetivos.html">Objetivos Financieros</a>
-        <a href="basicos.html">Principios básicos</a>
-        <a href="presupuesto.html">Presupuesto</a>
-        <a href="brokers.html">Brokers</a>
-        <a href="inversiones.html">Inversiones</a>
+      <nav class="nav-links horizontal" id="questions-nav">
+        <a href="#q1-explanation" class="nav-link" tabindex="0">Experiencia</a>
+        <a href="#q2-explanation" class="nav-link" tabindex="0">Riesgo</a>
+        <a href="#q3-explanation" class="nav-link" tabindex="0">Horizonte Temporal</a>
+        <a href="#q4-explanation" class="nav-link" tabindex="0">Cantidad a Invertir</a>
+        <a href="#q5-explanation" class="nav-link" tabindex="0">Tipo de Inversión</a>
       </nav>
     </div>
   </header>
 
-  <!-- CONTENIDO PRINCIPAL -->
-  <main role="main" aria-label="Contenido principal">
-    <section class="intro-section" aria-label="Introducción a la inversión" data-aos="fade-up">
-      <h2>Empieza a invertir de forma sencilla y segura</h2>
-      <p>Invertir puede parecer complicado al principio, pero con la información adecuada y un plan básico, cualquier persona puede comenzar a hacerlo de manera efectiva.</p>
-      <p>Esta guía te ayudará a entender los conceptos básicos, los tipos de inversión más accesibles y cómo dar tus primeros pasos sin riesgos innecesarios.</p>
-      <p>No necesitas grandes sumas de dinero ni experiencia previa; lo importante es informarte, planificar y actuar con confianza.</p>
-      <img
-        src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=800&q=80"
-        alt="Invertir con inteligencia"
-        loading="lazy"
-        />
-    </section>
+  <!-- SECCIÓN 1: Experiencia -->
+  <section id="q1-explanation" class="intro-section" tabindex="0" aria-labelledby="q1-title">
+    <h2 id="q1-title">¿Por qué preguntamos sobre tu experiencia invirtiendo?</h2>
+    <p>
+      Conocer tu experiencia previa nos ayuda a recomendar inversiones que se adapten a tu nivel de conocimiento.
+      Si eres principiante, te sugeriremos opciones más simples y seguras. Si ya tienes experiencia, podemos explorar alternativas con mayor complejidad y potencial.
+    </p>
+    <p>
+      La experiencia te permite manejar mejor las fluctuaciones del mercado y tomar decisiones informadas, evitando pérdidas innecesarias.
+      Por eso es fundamental entender en qué punto te encuentras antes de sugerirte productos financieros.
+    </p>
+  </section>
 
-    <section class="intro-continue" aria-label="Pasos básicos para comenzar a invertir" data-aos="fade-left">
-      <h2>PASOS BÁSICOS PARA COMENZAR A INVERTIR HOY</h2>
-      <ul>
-        <li><strong>Define tu objetivo:</strong> ¿Quieres ahorrar para el futuro, generar ingresos extra o proteger tu dinero?</li>
-        <li><strong>Educa sobre inversiones:</strong> Aprende términos básicos y tipos de inversiones (acciones, fondos, bonos, criptomonedas).</li>
-        <li><strong>Elige una plataforma confiable:</strong> Busca brokers regulados y con buenas reseñas para comenzar.</li>
-        <li><strong>Empieza con poco dinero:</strong> Invierte montos pequeños para familiarizarte con el proceso y reducir riesgos.</li>
-        <li><strong>Diversifica tu inversión:</strong> No pongas todo en un solo activo, reparte para minimizar pérdidas.</li>
-        <li><strong>Haz seguimiento:</strong> Revisa periódicamente tus inversiones y ajusta según el mercado y tus objetivos.</li>
-      </ul>
-      <p>Recuerda que invertir es un proceso continuo de aprendizaje y paciencia. La constancia y la información son tus mejores aliados.</p>
-    </section>
+  <!-- SECCIÓN 2: Riesgo -->
+  <section id="q2-explanation" class="intro-continue" tabindex="0" aria-labelledby="q2-title">
+    <h2 id="q2-title">¿Por qué es importante tu preferencia entre riesgo y seguridad?</h2>
+    <p>
+      El riesgo es inherente a toda inversión. Algunos inversores prefieren buscar altas ganancias y están dispuestos a asumir pérdidas temporales,
+      mientras que otros priorizan conservar su capital y aceptan menores rendimientos.
+    </p>
+    <p>
+      Conocer tu tolerancia al riesgo nos permite recomendar opciones que te hagan sentir cómodo y proteger tu patrimonio según tu perfil.
+      Además, ayuda a evitar decisiones impulsivas en momentos de volatilidad.
+    </p>
+  </section>
 
-    <section id="contacto" class="contacto-simple" aria-label="Formulario de contacto" data-aos="fade-up">
-      <div class="contacto-box">
-        <h2 class="contact-title">Contacto</h2>
-        <form class="contact-form" action="/tu-endpoint" method="POST" novalidate>
-          <label for="name">Nombre</label>
-          <input type="text" id="name" name="name" placeholder="Tu nombre" required />
+  <!-- SECCIÓN 3: Horizonte Temporal -->
+  <section id="q3-explanation" class="intro-section" tabindex="0" aria-labelledby="q3-title">
+    <h2 id="q3-title">¿Por qué preguntamos sobre el tiempo que planeas mantener la inversión?</h2>
+    <p>
+      El horizonte temporal es clave para elegir inversiones adecuadas. Si planeas invertir a largo plazo, puedes optar por activos con mayor volatilidad pero mayor potencial.
+      En cambio, si necesitas el dinero pronto, es mejor priorizar opciones más líquidas y seguras.
+    </p>
+    <p>
+      Esto también influye en la estrategia de diversificación y en la tolerancia al riesgo que puedes asumir en función del tiempo.
+    </p>
+  </section>
 
-          <label for="email">Correo electrónico</label>
-          <input type="email" id="email" name="email" placeholder="tu@correo.com" required />
+  <!-- SECCIÓN 4: Cantidad a Invertir -->
+  <section id="q4-explanation" class="intro-continue" tabindex="0" aria-labelledby="q4-title">
+    <h2 id="q4-title">¿Por qué importa cuánto dinero estás dispuesto a invertir?</h2>
+    <p>
+      La cantidad disponible determina qué productos financieros puedes acceder. Algunas inversiones tienen montos mínimos elevados,
+      mientras que otras permiten comenzar con poco capital.
+    </p>
+    <p>
+      Además, saber cuánto puedes invertir ayuda a recomendar una diversificación adecuada, minimizando riesgos y maximizando oportunidades según tu presupuesto.
+    </p>
+  </section>
 
-          <label for="message">Mensaje</label>
-          <textarea id="message" name="message" placeholder="Escribe tu mensaje" required></textarea>
+  <!-- SECCIÓN 5: Tipo de Inversión -->
+  <section id="q5-explanation" class="intro-section" tabindex="0" aria-labelledby="q5-title">
+    <h2 id="q5-title">¿Por qué preguntamos si prefieres una inversión activa o pasiva?</h2>
+    <p>
+      La inversión activa implica gestionar tus activos, estar al tanto del mercado y tomar decisiones frecuentes.
+      Requiere tiempo, conocimientos y seguimiento constante.
+    </p>
+    <p>
+      La inversión pasiva es automatizada, sigue índices o fondos predefinidos y demanda menos intervención, ideal para quienes prefieren delegar la gestión.
+      Conocer tu preferencia nos ayuda a recomendar estrategias acordes a tu estilo de vida y dedicación.
+    </p>
+  </section>
 
-          <button type="submit" aria-label="Enviar mensaje de contacto">Enviar</button>
-        </form>
+  <!-- TEST INTERACTIVO -->
+  <section class="test-section" aria-label="Test interactivo para recomendar inversión" tabindex="0">
+    <h2>Mini test para encontrar tu tipo de inversión ideal</h2>
+
+    <form id="investment-test" aria-describedby="result">
+      <!-- Pregunta 1 -->
+      <div class="question" data-question="1">
+        <h3>1. ¿Tienes experiencia invirtiendo?</h3>
+        <label><input type="radio" name="q1" value="si" required /> Sí</label>
+        <label><input type="radio" name="q1" value="no" /> No</label>
       </div>
-    </section>
-  </main>
 
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" crossorigin="anonymous"></script>
+      <!-- Pregunta 2 -->
+      <div class="question" data-question="2">
+        <h3>2. ¿Prefieres riesgo o seguridad?</h3>
+        <label><input type="radio" name="q2" value="riesgo" required /> Riesgo</label>
+        <label><input type="radio" name="q2" value="seguridad" /> Seguridad</label>
+      </div>
+
+      <!-- Pregunta 3 -->
+      <div class="question" data-question="3">
+        <h3>3. ¿Cuánto tiempo planeas mantener tu inversión?</h3>
+        <label><input type="radio" name="q3" value="largo" required /> Más de 5 años</label>
+        <label><input type="radio" name="q3" value="corto" /> Menos de 5 años</label>
+      </div>
+
+      <!-- Pregunta 4 -->
+      <div class="question" data-question="4">
+        <h3>4. ¿Qué tanto dinero estás dispuesto a invertir inicialmente?</h3>
+        <label><input type="radio" name="q4" value="poco" required /> Poco (menos de 1,000€)</label>
+        <label><input type="radio" name="q4" value="mucho" /> Mucho (más de 1,000€)</label>
+      </div>
+
+      <!-- Pregunta 5 -->
+      <div class="question" data-question="5">
+        <h3>5. ¿Quieres invertir de forma activa o pasiva?</h3>
+        <label><input type="radio" name="q5" value="activa" required /> Activa (tomar decisiones) </label>
+        <label><input type="radio" name="q5" value="pasiva" /> Pasiva (delegar gestión) </label>
+      </div>
+
+      <button type="submit" class="btn-submit" aria-controls="result" aria-live="polite">Ver resultado</button>
+    </form>
+
+    <div id="result" role="region" aria-live="polite" aria-atomic="true"></div>
+  </section>
+
+  <!-- FORMULARIO DE CONTACTO -->
+  <section class="contacto-simple" aria-label="Formulario de contacto">
+    <h2>¿Quieres que te asesore personalmente?</h2>
+    <form class="contact-form" action="#" method="post" aria-describedby="contact-desc">
+      <p id="contact-desc" style="text-align:center; max-width: 600px; margin: 0 auto 1.5rem;">
+        Déjanos tus datos y un asesor se pondrá en contacto contigo para ayudarte con tus inversiones.
+      </p>
+
+      <label for="name">Nombre completo:</label>
+      <input type="text" id="name" name="name" placeholder="Tu nombre" required />
+
+      <label for="email">Correo electrónico:</label>
+      <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required />
+
+      <label for="message">Mensaje (opcional):</label>
+      <textarea id="message" name="message" rows="4" placeholder="Escribe tu consulta aquí"></textarea>
+
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    &copy; 2025 Peke Investments. Todos los derechos reservados.
+  </footer>
+
+  <!-- SCRIPT PARA TEST Y CANVAS -->
+
   <script>
-    AOS.init({
-      duration: 900,
-      easing: 'ease-out-cubic',
-      once: true,
-    });
-
+    // Canvas efecto redes (red simple de puntos y líneas)
     const canvas = document.getElementById('network');
     const ctx = canvas.getContext('2d');
-
     let points = [];
     let width, height;
 
     function resizeCanvas() {
-      width = canvas.width = canvas.clientWidth;
-      height = canvas.height = canvas.clientHeight;
-    }
-
-    function initPoints() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = 180;
       points = [];
-      for (let i = 0; i < 60; i++) {
+      for (let i = 0; i < 30; i++) {
         points.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
         });
       }
     }
 
-    function distance(p1, p2) {
-      return Math.hypot(p1.x - p2.x, p1.y - p2.y);
-    }
-
     function draw() {
       ctx.clearRect(0, 0, width, height);
+      // Dibuja puntos
+      points.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > width) p.vx = -p.vx;
+        if (p.y < 0 || p.y > height) p.vy = -p.vy;
 
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+      });
+
+      // Dibuja líneas entre puntos cercanos
       for (let i = 0; i < points.length; i++) {
         for (let j = i + 1; j < points.length; j++) {
-          const dist = distance(points[i], points[j]);
-          if (dist < 120) {
-            ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist / 120})`;
-            ctx.lineWidth = 1;
+          const dx = points[i].x - points[j].x;
+          const dy = points[i].y - points[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 100) {
             ctx.beginPath();
             ctx.moveTo(points[i].x, points[i].y);
             ctx.lineTo(points[j].x, points[j].y);
+            ctx.strokeStyle = 'rgba(255,255,255,' + (1 - dist / 100) * 0.3 + ')';
+            ctx.lineWidth = 1;
             ctx.stroke();
           }
         }
       }
-
-      points.forEach((p) => {
-        ctx.fillStyle = 'white';
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      points.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0 || p.x > width) p.vx *= -1;
-        if (p.y < 0 || p.y > height) p.vy *= -1;
-      });
-
       requestAnimationFrame(draw);
     }
 
-    function start() {
-      resizeCanvas();
-      initPoints();
-      draw();
-    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    draw();
 
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      initPoints();
+    // Test JS: recolectar respuestas y mostrar resultado
+    const form = document.getElementById('investment-test');
+    const resultDiv = document.getElementById('result');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Obtener respuestas
+      const formData = new FormData(form);
+      const q1 = formData.get('q1'); // experiencia
+      const q2 = formData.get('q2'); // riesgo
+      const q3 = formData.get('q3'); // tiempo
+      const q4 = formData.get('q4'); // dinero
+      const q5 = formData.get('q5'); // tipo inversión
+
+      // Algoritmo simple para recomendación:
+      // Si no tienes experiencia, opción conservadora.
+      // Riesgo alta + largo plazo + mucho dinero => Inversión activa en acciones/fondos.
+      // Seguridad + corto plazo => Bonos/fondos garantizados.
+      // Poco dinero => ETFs o fondos indexados.
+      // Pasiva => fondos indexados o roboadvisors.
+
+      let recommendation = '';
+      if (q1 === 'no') {
+        recommendation = 'Dado que no tienes experiencia, te recomendamos comenzar con fondos indexados o ETFs para aprender sin riesgos elevados.';
+      } else {
+        if (q2 === 'riesgo' && q3 === 'largo' && q4 === 'mucho' && q5 === 'activa') {
+          recommendation = 'Tu perfil indica que puedes considerar una cartera activa con acciones individuales y fondos mutuos que aprovechen el crecimiento a largo plazo.';
+        } else if (q2 === 'riesgo' && q3 === 'largo' && q4 === 'poco') {
+          recommendation = 'Podrías optar por ETFs diversificados para aprovechar el crecimiento a largo plazo con bajo costo y flexibilidad.';
+        } else if (q2 === 'seguridad' && q3 === 'corto') {
+          recommendation = 'Para proteger tu capital a corto plazo, considera bonos gubernamentales o fondos garantizados.';
+        } else if (q5 === 'pasiva') {
+          recommendation = 'La inversión pasiva con fondos indexados o roboadvisors es ideal para delegar la gestión y mantener costos bajos.';
+        } else {
+          recommendation = 'Una estrategia equilibrada con fondos diversificados y un mix de acciones y bonos puede ajustarse bien a tu perfil.';
+        }
+      }
+
+      resultDiv.textContent = recommendation;
+      resultDiv.focus();
     });
-
-    start();
   </script>
 </body>
-</html>
 
+</html>
