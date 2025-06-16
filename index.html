@@ -1,78 +1,392 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>¿En qué deberías invertir?</title>
+  <title>Guía para invertir: pasos iniciales y consejos</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts + Iconos -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+
+  <!-- AOS (Animate On Scroll) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" crossorigin="anonymous" />
+
+  <!-- Estilos propios -->
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    a {
+      text-decoration: none;
+      color: #2c7a7b;
+      font-weight: 600;
+    }
+    a:hover {
+      color: #285e61;
+    }
+
+    /* HEADER principal */
+    header.tech-header {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      height: 250px;
+      margin-top: 2rem;
+      background: linear-gradient(135deg, #2c7a7b, #285e61);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(40, 94, 97, 0.5);
+      padding: 0 1rem;
+    }
+    header.tech-header h1 {
+      font-weight: 700;
+      font-size: 2.4rem;
+      z-index: 2;
+      user-select: none;
+      line-height: 1.2;
+    }
+    header.tech-header canvas#network {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Navbar */
+    header.navbar.horizontal {
+      width: 100%;
+      background: #285e61;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      border-radius: 0 0 12px 12px;
+      margin-top: 1rem;
+      user-select: none;
+    }
+    .nav-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0.7rem 1rem;
+    }
+    nav.nav-links.horizontal {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    nav.nav-links.horizontal a {
+      color: #e0f2f1;
+      padding: 0.3rem 0.5rem;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+    nav.nav-links.horizontal a:hover,
+    nav.nav-links.horizontal a:focus {
+      background: #1e4c4d;
+      outline: none;
+    }
+
+    /* Main content */
+    main {
+      max-width: 900px;
+      margin: 3rem auto 4rem;
+      padding: 0 1rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      color: #333;
+    }
+    section {
+      margin-bottom: 3rem;
+    }
+    section h2 {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #2c7a7b;
+      margin-bottom: 1rem;
+      user-select: none;
+    }
+    section.intro-section p {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    section.intro-section img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      display: block;
+      margin: 2rem auto 0;
+      user-select: none;
+    }
+
+    /* Lista pasos */
+    section.intro-continue ul {
+      list-style: inside disc;
+      font-size: 1rem;
+      color: #334e4e;
+      margin-bottom: 1rem;
+    }
+    section.intro-continue ul li {
+      margin-bottom: 0.8rem;
+    }
+    section.intro-continue p {
+      font-weight: 600;
+      color: #2c7a7b;
+    }
+
+    /* Contacto */
+    section.contacto-simple {
+      background: #e0f2f1;
+      padding: 1.8rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(44, 122, 123, 0.25);
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      user-select: none;
+    }
+    .contacto-box {
+      display: flex;
+      flex-direction: column;
+    }
+    .contact-title {
+      font-weight: 700;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #285e61;
+      user-select: none;
+    }
+    form.contact-form label {
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+      color: #285e61;
+      user-select: none;
+    }
+    form.contact-form input,
+    form.contact-form textarea {
+      padding: 0.6rem 0.8rem;
+      margin-bottom: 1.2rem;
+      border-radius: 8px;
+      border: 1.8px solid #2c7a7b;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      resize: vertical;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease;
+    }
+    form.contact-form input:focus,
+    form.contact-form textarea:focus {
+      border-color: #1e4c4d;
+      outline: none;
+    }
+    form.contact-form textarea {
+      min-height: 100px;
+    }
+    form.contact-form button {
+      background: #2c7a7b;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 0.8rem 1.8rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    form.contact-form button:hover,
+    form.contact-form button:focus {
+      background: #1e4c4d;
+      outline: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      nav.nav-links.horizontal {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      main {
+        margin: 2rem 1rem 3rem;
+        padding: 1rem;
+      }
+      header.tech-header {
+        height: 200px;
+        font-size: 1.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <nav>
-    <a href="#">Inicio</a>
-    <a href="#">Tipos</a>
-    <a href="#">Renta Fija</a>
-    <a href="#">Fondos</a>
-    <a href="#">Acciones</a>
-  </nav>
-
-  <header>
-    <h1>¿En qué deberías invertir?</h1>
-    <p>Haz este test rápido para descubrirlo</p>
-    <canvas id="backgroundCanvas"></canvas>
+  <!-- HEADER PRINCIPAL -->
+  <header class="tech-header" role="banner">
+    <h1>Guía para invertir: <br />pasos iniciales y consejos</h1>
+    <canvas id="network"></canvas>
   </header>
 
-  <main data-aos="fade-up">
-    <form id="investment-form" aria-label="Test de inversión">
-      <div class="question">
-        <h4>1. ¿Cuánto riesgo estás dispuesto a asumir?</h4>
-        <label><input type="radio" name="q1" value="bajo" /> Poco</label>
-        <label><input type="radio" name="q1" value="medio" /> Moderado</label>
-        <label><input type="radio" name="q1" value="alto" /> Alto</label>
-      </div>
-      <div class="question">
-        <h4>2. ¿Cuánto tiempo puedes mantener tu dinero invertido?</h4>
-        <label><input type="radio" name="q2" value="corto" /> Menos de 1 año</label>
-        <label><input type="radio" name="q2" value="medio" /> 1-5 años</label>
-        <label><input type="radio" name="q2" value="largo" /> Más de 5 años</label>
-      </div>
-      <div class="question">
-        <h4>3. ¿Tienes experiencia previa invirtiendo?</h4>
-        <label><input type="radio" name="q3" value="si" /> Sí</label>
-        <label><input type="radio" name="q3" value="no" /> No</label>
-      </div>
-      <div class="question">
-        <h4>4. ¿Cuánto dinero planeas invertir al mes?</h4>
-        <label><input type="radio" name="q4" value="bajo" /> Menos de 50 €</label>
-        <label><input type="radio" name="q4" value="medio" /> 50-200 €</label>
-        <label><input type="radio" name="q4" value="alto" /> Más de 200 €</label>
-      </div>
-      <div class="question">
-        <h4>5. ¿Prefieres simplicidad o control?</h4>
-        <label><input type="radio" name="q5" value="simple" /> Simplicidad</label>
-        <label><input type="radio" name="q5" value="control" /> Control total</label>
-      </div>
-
-      <button type="button" id="btn-result">Ver resultado</button>
-    </form>
-
-    <div class="result" id="result-box" role="region" aria-live="polite" tabindex="-1">
-      <h3>Tu inversión ideal es:</h3>
-      <p id="result-text"></p>
-      <a id="result-link" href="#" target="_blank" rel="noopener noreferrer">Ver más</a>
+  <!-- NAVBAR -->
+  <header class="navbar horizontal" role="navigation" aria-label="Menú principal">
+    <div class="nav-container">
+      <nav class="nav-links horizontal">
+        <a href="index.html">Inicio</a>
+        <a href="objetivos.html">Objetivos Financieros</a>
+        <a href="basicos.html">Principios básicos</a>
+        <a href="presupuesto.html">Presupuesto</a>
+        <a href="brokers.html">Brokers</a>
+        <a href="inversiones.html">Inversiones</a>
+      </nav>
     </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main role="main" aria-label="Contenido principal">
+    <section class="intro-section" aria-label="Introducción a la inversión" data-aos="fade-up">
+      <h2>Empieza a invertir de forma sencilla y segura</h2>
+      <p>Invertir puede parecer complicado al principio, pero con la información adecuada y un plan básico, cualquier persona puede comenzar a hacerlo de manera efectiva.</p>
+      <p>Esta guía te ayudará a entender los conceptos básicos, los tipos de inversión más accesibles y cómo dar tus primeros pasos sin riesgos innecesarios.</p>
+      <p>No necesitas grandes sumas de dinero ni experiencia previa; lo importante es informarte, planificar y actuar con confianza.</p>
+      <img
+        src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=800&q=80"
+        alt="Invertir con inteligencia"
+        loading="lazy"
+        />
+    </section>
+
+    <section class="intro-continue" aria-label="Pasos básicos para comenzar a invertir" data-aos="fade-left">
+      <h2>PASOS BÁSICOS PARA COMENZAR A INVERTIR HOY</h2>
+      <ul>
+        <li><strong>Define tu objetivo:</strong> ¿Quieres ahorrar para el futuro, generar ingresos extra o proteger tu dinero?</li>
+        <li><strong>Educa sobre inversiones:</strong> Aprende términos básicos y tipos de inversiones (acciones, fondos, bonos, criptomonedas).</li>
+        <li><strong>Elige una plataforma confiable:</strong> Busca brokers regulados y con buenas reseñas para comenzar.</li>
+        <li><strong>Empieza con poco dinero:</strong> Invierte montos pequeños para familiarizarte con el proceso y reducir riesgos.</li>
+        <li><strong>Diversifica tu inversión:</strong> No pongas todo en un solo activo, reparte para minimizar pérdidas.</li>
+        <li><strong>Haz seguimiento:</strong> Revisa periódicamente tus inversiones y ajusta según el mercado y tus objetivos.</li>
+      </ul>
+      <p>Recuerda que invertir es un proceso continuo de aprendizaje y paciencia. La constancia y la información son tus mejores aliados.</p>
+    </section>
+
+    <section id="contacto" class="contacto-simple" aria-label="Formulario de contacto" data-aos="fade-up">
+      <div class="contacto-box">
+        <h2 class="contact-title">Contacto</h2>
+        <form class="contact-form" action="/tu-endpoint" method="POST" novalidate>
+          <label for="name">Nombre</label>
+          <input type="text" id="name" name="name" placeholder="Tu nombre" required />
+
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" placeholder="tu@correo.com" required />
+
+          <label for="message">Mensaje</label>
+          <textarea id="message" name="message" placeholder="Escribe tu mensaje" required></textarea>
+
+          <button type="submit" aria-label="Enviar mensaje de contacto">Enviar</button>
+        </form>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    © 2025 Peke Finanzas. Todos los derechos reservados.
-  </footer>
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" crossorigin="anonymous"></script>
+  <script>
+    AOS.init({
+      duration: 900,
+      easing: 'ease-out-cubic',
+      once: true,
+    });
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script src="main.js"></script>
+    const canvas = document.getElementById('network');
+    const ctx = canvas.getContext('2d');
+
+    let points = [];
+    let width, height;
+
+    function resizeCanvas() {
+      width = canvas.width = canvas.clientWidth;
+      height = canvas.height = canvas.clientHeight;
+    }
+
+    function initPoints() {
+      points = [];
+      for (let i = 0; i < 60; i++) {
+        points.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5
+        });
+      }
+    }
+
+    function distance(p1, p2) {
+      return Math.hypot(p1.x - p2.x, p1.y - p2.y);
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < points.length; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+          const dist = distance(points[i], points[j]);
+          if (dist < 120) {
+            ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist / 120})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(points[i].x, points[i].y);
+            ctx.lineTo(points[j].x, points[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      points.forEach((p) => {
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      points.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+      });
+
+      requestAnimationFrame(draw);
+    }
+
+    function start() {
+      resizeCanvas();
+      initPoints();
+      draw();
+    }
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      initPoints();
+    });
+
+    start();
+  </script>
 </body>
 </html>
 
