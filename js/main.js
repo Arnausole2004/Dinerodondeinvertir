@@ -17,6 +17,7 @@ function resizeCanvas() {
   }
 }
 
+
 function draw() {
   ctx.clearRect(0, 0, width, height);
 
