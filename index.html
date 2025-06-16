@@ -1,1 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>¿En qué deberías invertir?</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+  <style>
+    /* Reset y base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navbar */
+    nav {
+      background: #1f1f1f;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    nav a {
+      color: #eee;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #4caf50;
+    }
+
+    /* Header con canvas animado */
+    header {
+      position: relative;
+      height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      padding-top: 4rem; /* navbar height */
+      background: #121212;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0.5rem 0;
+      color: #4caf50;
+      z-index: 1;
+      user-select: none;
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #bbb;
+      z-index: 1;
+    }
+    canvas#backgroundCanvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Main contenido */
+    main {
+      flex: 1;
+      max-width: 900px;
+      margin: 3rem auto 4rem;
+      padding: 2rem 1rem 3rem;
+      background: #1e1e1e;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(76,175,80,0.3);
+      color: #eee;
+    }
+    main h2 {
+      color: #4caf50;
+      margin-bottom: 1rem;
+    }
+    .question {
+      margin-bottom: 2rem;
+    }
+    .question h4 {
+      margin-bottom: 0.75rem;
+    }
+    .question label {
+      display: block;
+      margin: 0.6rem 0;
+      cursor: pointer;
+      font-weight: 400;
+      transition: color 0.25s ease;
+    }
+    .question label:hover {
+      color: #4caf50;
+    }
+    input[type="radio"] {
+      margin-right: 0.6rem;
+      accent-color: #4caf50;
+      cursor: pointer;
+    }
+    button {
+      background: #4caf50;
+      border: none;
+      padding: 0.9rem 2.2rem;
+      font-size: 1.1rem;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    button:hover {
+      background: #3a9e40;
+    }
+    .result {
+      display: none;
+      margin-top: 2rem;
+      padding: 1.8rem;
+      border: 2px solid #4caf50;
+      border-radius: 12px;
+      background: #263824;
+    }
+    .result h3 {
+      margin-top: 0;
+      color: #81c784;
+    }
+    .result a {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #4caf50;
+      color: white;
+      padding: 0.7rem 1.6rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    .result a:hover {
+      background: #3a9e40;
+    }
+
+    /* Footer */
+    footer {
+      background: #1f1f1f;
+      text-align: center;
+      color: #666;
+      font-size: 0.9rem;
+      padding: 1.5rem 1rem;
+      user-select: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      main {
+        margin: 5rem 1rem 3rem;
+        padding: 1.5rem 1rem 2rem;
+      }
+      nav {
+        padding: 1rem;
+        gap: 1rem;
+      }
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="tipos.html">Tipos</a>
+    <a href="fija.html">Renta Fija</a>
+    <a href="fondos.html">Fondos</a>
+    <a href="acciones.html">Acciones</a>
+    <a href="criptos.html">Criptos</a>
+    <a href="oro.html">Oro</a>
+    <a href="immuebles.html">Inmuebles</a>
+  </nav>
+
+  <header>
+    <h1>¿En qué deberías invertir?</h1>
+    <p>Haz este test rápido para descubrirlo</p>
+    <canvas id="backgroundCanvas"></canvas>
+  </header>
+
+  <main data-aos="fade-up">
+    <form id="investment-form" aria-label="Test de inversión">
+      <div class="question">
+        <h4>1. ¿Cuánto riesgo estás dispuesto a asumir?</h4>
+        <label><input type="radio" name="q1" value="bajo" /> Poco</label>
+        <label><input type="radio" name="q1" value="medio" /> Moderado</label>
+        <label><input type="radio" name="q1" value="alto" /> Alto</label>
+      </div>
+      <div class="question">
+        <h4>2. ¿Cuánto tiempo puedes mantener tu dinero invertido?</h4>
+        <label><input type="radio" name="q2" value="corto" /> Menos de 1 año</label>
+        <label><input type="radio" name="q2" value="medio" /> 1-5 años</label>
+        <label><input type="radio" name="q2" value="largo" /> Más de 5 años</label>
+      </div>
+      <div class="question">
+        <h4>3. ¿Tienes experiencia previa invirtiendo?</h4>
+        <label><input type="radio" name="q3" value="si" /> Sí</label>
+        <label><input type="radio" name="q3" value="no" /> No</label>
+      </div>
+      <div class="question">
+        <h4>4. ¿Cuánto dinero planeas invertir al mes?</h4>
+        <label><input type="radio" name="q4" value="bajo" /> Menos de 50 €</label>
+        <label><input type="radio" name="q4" value="medio" /> 50-200 €</label>
+        <label><input type="radio" name="q4" value="alto" /> Más de 200 €</label>
+      </div>
+      <div class="question">
+        <h4>5. ¿Prefieres simplicidad o control?</h4>
+        <label><input type="radio" name="q5" value="simple" /> Simplicidad</label>
+        <label><input type="radio" name="q5" value="control" /> Control total</label>
+      </div>
+
+      <button type="button" onclick="showResult()">Ver resultado</button>
+    </form>
+
+    <div class="result" id="result-box" role="region" aria-live="polite">
+      <h3>Tu inversión ideal es:</h3>
+      <p id="result-text"></p>
+      <a id="result-link" href="#" target="_blank" rel="noopener noreferrer">Ver más</a>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 Peke Finanzas. Todos los derechos reservados.
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>AOS.init();</script>
+
+  <script>
+    function showResult() {
+      const answers = {
+        q1: document.querySelector('input[name="q1"]:checked')?.value,
+        q2: document.querySelector('input[name="q2"]:checked')?.value,
+        q3: document.querySelector('input[name="q3"]:checked')?.value,
+        q4: document.querySelector('input[name="q4"]:checked')?.value,
+        q5: document.querySelector('input[name="q5"]:checked')?.value
+      };
+
+      if (Object.values(answers).includes(undefined)) {
+        alert("Por favor, responde todas las preguntas.");
+        return;
+      }
+
+      let result = "";
+      let link = "";
+
+      if (answers.q1 === "bajo" && answers.q2 === "corto") {
+        result = "Renta fija o depósitos bancarios. Baja volatilidad, alta seguridad.";
+        link = "fija.html";
+      } else if (answers.q1 === "medio" && answers.q2 !== "corto") {
+        result = "Fondos indexados o ETFs. Diversificados y estables a largo plazo.";
+        link = "fondos.html";
+      } else if (answers.q1 === "alto" && answers.q3 === "si") {
+        result = "Acciones individuales o criptomonedas. Riesgo alto, pero gran potencial.";
+        link = "acciones.html";
+      } else {
+        result = "Empieza por fondos automatizados o indexados. Buen equilibrio para principiantes.";
+        link = "fondos.html";
+      }
+
+      document.getElementById("result-text").textContent = result;
+      const resultLink = document.getElementById("result-link");
+      resultLink.href = link;
+      resultLink.focus();
+
+      document.getElementById("result-box").style.display = "block";
+      window.scrollTo({ top: document.getElementById("result-box").offsetTop - 80, behavior: 'smooth' });
+    }
+
+    // Fondo animado con puntos y líneas en canvas para header
+    const canvas = document.getElementById('backgroundCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    const points = [];
+    const POINTS_COUNT = 50;
+
+    function resize() {
+      width = canvas.width = canvas.offsetWidth;
+      height = canvas.height = canvas.offsetHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Point {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(76,175,80,0.7)';
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < POINTS_COUNT; i++) {
+      points.push(new Point());
+    }
+
+    function drawLines() {
+      for (let i = 0; i < POINTS_COUNT; i++) {
+        for (let j = i + 1; j < POINTS_COUNT; j++) {
+          const dx = points[i].x - points[j].x;
+          const dy = points[i].y - points[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            ctx.strokeStyle = `rgba(76,175,80,${1 - dist / 120})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(points[i].x, points[i].y);
+            ctx.lineTo(points[j].x, points[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      points.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      drawLines();
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
 
