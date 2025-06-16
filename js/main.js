@@ -15,7 +15,7 @@ function showResult() {
   }
 
   let result = "";
-  let link = "";
+  let link = "#";
 
   if (answers.q1 === "bajo" && answers.q2 === "corto") {
     result = "Renta fija o depósitos bancarios. Baja volatilidad, alta seguridad.";
@@ -118,4 +118,5 @@ AOS.init({
   easing: 'ease-out-cubic',
   once: true,
 });
+
 
