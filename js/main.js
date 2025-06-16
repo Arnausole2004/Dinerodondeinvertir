@@ -1,85 +1,56 @@
 const canvas = document.getElementById('network');
 const ctx = canvas.getContext('2d');
-
-let width, height;
 let points = [];
-const POINT_COUNT = 50;
-const MAX_DISTANCE = 120;
+let width, height;
 
-function resize() {
+function resizeCanvas() {
   width = canvas.width = canvas.clientWidth;
   height = canvas.height = canvas.clientHeight;
-}
-
-function random(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-function createPoints() {
   points = [];
-  for (let i = 0; i < POINT_COUNT; i++) {
+  for (let i = 0; i < 30; i++) {
     points.push({
-      x: random(0, width),
-      y: random(0, height),
-      vx: random(-0.5, 0.5),
-      vy: random(-0.5, 0.5),
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
     });
-  }
-}
-
-function updatePoints() {
-  for (let p of points) {
-    p.x += p.vx;
-    p.y += p.vy;
-
-    if (p.x < 0 || p.x > width) p.vx *= -1;
-    if (p.y < 0 || p.y > height) p.vy *= -1;
   }
 }
 
 function draw() {
   ctx.clearRect(0, 0, width, height);
 
-  // Dibuja puntos en verde fuerte
-  ctx.fillStyle = '#007f00'; // verde fuerte
-  for (let p of points) {
+  points.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0 || p.x > width) p.vx = -p.vx;
+    if (p.y < 0 || p.y > height) p.vy = -p.vy;
+
     ctx.beginPath();
     ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = '#00b300'; // verde fuerte
     ctx.fill();
-  }
+  });
 
-  // Dibuja líneas entre puntos cercanos en verde fuerte translúcido
-  ctx.strokeStyle = 'rgba(0, 127, 0, 0.6)';
-  ctx.lineWidth = 1;
   for (let i = 0; i < points.length; i++) {
     for (let j = i + 1; j < points.length; j++) {
-      const p1 = points[i];
-      const p2 = points[j];
-      const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
-
-      if (dist < MAX_DISTANCE) {
+      const dx = points[i].x - points[j].x;
+      const dy = points[i].y - points[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 100) {
         ctx.beginPath();
-        ctx.moveTo(p1.x, p1.y);
-        ctx.lineTo(p2.x, p2.y);
+        ctx.moveTo(points[i].x, points[i].y);
+        ctx.lineTo(points[j].x, points[j].y);
+        ctx.strokeStyle = 'rgba(0, 179, 0,' + (1 - dist / 100) * 0.6 + ')';
+        ctx.lineWidth = 1;
         ctx.stroke();
       }
     }
   }
+
+  requestAnimationFrame(draw);
 }
 
-function animate() {
-  updatePoints();
-  draw();
-  requestAnimationFrame(animate);
-}
-
-window.addEventListener('resize', () => {
-  resize();
-  createPoints();
-});
-
-window.addEventListener('load', () => {
-  resize();
-  createPoints();
-  animate();
-});
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+draw();
