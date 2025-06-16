@@ -43,38 +43,36 @@ function updatePoints() {
 
 function draw() {
   ctx.clearRect(0, 0, width, height);
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
-  ctx.lineWidth = 1;
 
-  // Dibuja puntos
-  for (let p of points) {
+  points.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0 || p.x > width) p.vx = -p.vx;
+    if (p.y < 0 || p.y > height) p.vy = -p.vy;
+
     ctx.beginPath();
     ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = '#00b300'; // verde fuerte
     ctx.fill();
-  }
+  });
 
-  // Dibuja líneas entre puntos cercanos
   for (let i = 0; i < points.length; i++) {
     for (let j = i + 1; j < points.length; j++) {
-      const p1 = points[i];
-      const p2 = points[j];
-      const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
-
-      if (dist < MAX_DISTANCE) {
+      const dx = points[i].x - points[j].x;
+      const dy = points[i].y - points[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 100) {
         ctx.beginPath();
-        ctx.moveTo(p1.x, p1.y);
-        ctx.lineTo(p2.x, p2.y);
+        ctx.moveTo(points[i].x, points[i].y);
+        ctx.lineTo(points[j].x, points[j].y);
+        ctx.strokeStyle = 'rgba(0, 179, 0,' + (1 - dist / 100) * 0.6 + ')';
+        ctx.lineWidth = 1;
         ctx.stroke();
       }
     }
   }
-}
 
-function animate() {
-  updatePoints();
-  draw();
-  requestAnimationFrame(animate);
+  requestAnimationFrame(draw);
 }
 
 window.addEventListener('resize', () => {
