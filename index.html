@@ -469,107 +469,63 @@
   <!-- SCRIPT PARA TEST Y CANVAS -->
 
   <script>
-    // Canvas efecto redes (red simple de puntos y líneas)
-    const canvas = document.getElementById('network');
-    const ctx = canvas.getContext('2d');
-    let points = [];
-    let width, height;
+  // Canvas efecto redes - actualizado a tonos verdes
+  const canvas = document.getElementById('network');
+  const ctx = canvas.getContext('2d');
+  let points = [];
+  let width, height;
 
-    function resizeCanvas() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = 180;
-      points = [];
-      for (let i = 0; i < 30; i++) {
-        points.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.3,
-          vy: (Math.random() - 0.5) * 0.3,
-        });
-      }
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, width, height);
-      // Dibuja puntos
-      points.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > width) p.vx = -p.vx;
-        if (p.y < 0 || p.y > height) p.vy = -p.vy;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-        ctx.fillStyle = '#fff';
-        ctx.fill();
+  function resizeCanvas() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = 180;
+    points = [];
+    for (let i = 0; i < 30; i++) {
+      points.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
       });
+    }
+  }
 
-      // Dibuja líneas entre puntos cercanos
-      for (let i = 0; i < points.length; i++) {
-        for (let j = i + 1; j < points.length; j++) {
-          const dx = points[i].x - points[j].x;
-          const dy = points[i].y - points[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 100) {
-            ctx.beginPath();
-            ctx.moveTo(points[i].x, points[i].y);
-            ctx.lineTo(points[j].x, points[j].y);
-            ctx.strokeStyle = 'rgba(255,255,255,' + (1 - dist / 100) * 0.3 + ')';
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+    points.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > width) p.vx = -p.vx;
+      if (p.y < 0 || p.y > height) p.vy = -p.vy;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+      ctx.fillStyle = '#e8f5e9'; // verde pálido
+      ctx.fill();
+    });
+
+    for (let i = 0; i < points.length; i++) {
+      for (let j = i + 1; j < points.length; j++) {
+        const dx = points[i].x - points[j].x;
+        const dy = points[i].y - points[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 100) {
+          ctx.beginPath();
+          ctx.moveTo(points[i].x, points[i].y);
+          ctx.lineTo(points[j].x, points[j].y);
+          ctx.strokeStyle = 'rgba(255, 255, 255,' + (1 - dist / 100) * 0.3 + ')';
+          ctx.lineWidth = 1;
+          ctx.stroke();
         }
       }
-      requestAnimationFrame(draw);
     }
 
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-    draw();
+    requestAnimationFrame(draw);
+  }
 
-    // Test JS: recolectar respuestas y mostrar resultado
-    const form = document.getElementById('investment-test');
-    const resultDiv = document.getElementById('result');
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      // Obtener respuestas
-      const formData = new FormData(form);
-      const q1 = formData.get('q1'); // experiencia
-      const q2 = formData.get('q2'); // riesgo
-      const q3 = formData.get('q3'); // tiempo
-      const q4 = formData.get('q4'); // dinero
-      const q5 = formData.get('q5'); // tipo inversión
-
-      // Algoritmo simple para recomendación:
-      // Si no tienes experiencia, opción conservadora.
-      // Riesgo alta + largo plazo + mucho dinero => Inversión activa en acciones/fondos.
-      // Seguridad + corto plazo => Bonos/fondos garantizados.
-      // Poco dinero => ETFs o fondos indexados.
-      // Pasiva => fondos indexados o roboadvisors.
-
-      let recommendation = '';
-      if (q1 === 'no') {
-        recommendation = 'Dado que no tienes experiencia, te recomendamos comenzar con fondos indexados o ETFs para aprender sin riesgos elevados.';
-      } else {
-        if (q2 === 'riesgo' && q3 === 'largo' && q4 === 'mucho' && q5 === 'activa') {
-          recommendation = 'Tu perfil indica que puedes considerar una cartera activa con acciones individuales y fondos mutuos que aprovechen el crecimiento a largo plazo.';
-        } else if (q2 === 'riesgo' && q3 === 'largo' && q4 === 'poco') {
-          recommendation = 'Podrías optar por ETFs diversificados para aprovechar el crecimiento a largo plazo con bajo costo y flexibilidad.';
-        } else if (q2 === 'seguridad' && q3 === 'corto') {
-          recommendation = 'Para proteger tu capital a corto plazo, considera bonos gubernamentales o fondos garantizados.';
-        } else if (q5 === 'pasiva') {
-          recommendation = 'La inversión pasiva con fondos indexados o roboadvisors es ideal para delegar la gestión y mantener costos bajos.';
-        } else {
-          recommendation = 'Una estrategia equilibrada con fondos diversificados y un mix de acciones y bonos puede ajustarse bien a tu perfil.';
-        }
-      }
-
-      resultDiv.textContent = recommendation;
-      resultDiv.focus();
-    });
-  </script>
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+  draw();
+</script>
 </body>
 
 </html>
