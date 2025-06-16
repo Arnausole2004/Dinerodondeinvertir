@@ -18,7 +18,357 @@
 
   <!-- AOS para animaciones al hacer scroll -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" crossorigin="anonymous" />
+ <style>
+    /* Reset básico */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fff7f0;
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: #ff6f3c;
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+      font-weight: 400;
+      font-size: 1rem;
+      max-width: 720px;
+    }
+
+    /* Header con canvas */
+      /* Header con canvas - tonos verdes */
+  .tech-header {
+    position: relative;
+    background: #81c784; /* verde claro tipo material design */
+    padding: 3rem 1rem 5rem;
+    overflow: hidden;
+    margin-bottom: 3rem;
+  }
+
+  .tech-header h1 {
+    color: #ffffff;
+    z-index: 10;
+    position: relative;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  #network {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 180px;
+    z-index: 1;
+    opacity: 0.25;
+    background: #81c784; /* mismo fondo que header */
+  }
+
+    /* Navbar sticky horizontal */
+    header.navbar {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      border-bottom: 3px solid #ff6f3c;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      z-index: 20;
+      display: flex;
+      justify-content: center;
+      padding: 0.6rem 0;
+    }
+
+    .nav-container {
+      width: 90%;
+      max-width: 1200px;
+    }
+
+    nav.nav-links.horizontal {
+      display: flex;
+      gap: 1.25rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav.nav-links.horizontal a.nav-link {
+      padding: 0.5rem 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: #ff6f3c;
+      border: 2px solid transparent;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+      font-size: 1rem;
+      background-color: #fff7f0;
+      box-shadow: 0 0 5px transparent;
+    }
+
+    nav.nav-links.horizontal a.nav-link:hover,
+    nav.nav-links.horizontal a.nav-link:focus {
+      background-color: #ff6f3c;
+      color: white;
+      border-color: #ff6f3c;
+      box-shadow: 0 4px 10px rgba(255, 111, 60, 0.4);
+      outline: none;
+    }
+
+    /* Secciones explicativas */
+    section.intro-section,
+    section.intro-continue {
+      padding: 2rem 1rem;
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(255, 111, 60, 0.15);
+      transition: box-shadow 0.3s ease;
+    }
+
+    section.intro-section:focus,
+    section.intro-continue:focus {
+      outline: 3px solid #ff6f3c;
+      outline-offset: 3px;
+      box-shadow: 0 8px 30px rgba(255, 111, 60, 0.3);
+    }
+
+    /* Test interactivo */
+    section.test-section {
+      max-width: 900px;
+      margin: 3rem auto 5rem;
+      padding: 2rem 2rem 3rem;
+      background: #ffede3;
+      border-radius: 12px;
+      box-shadow: 0 5px 25px rgba(255, 111, 60, 0.25);
+    }
+
+    section.test-section h2 {
+      margin-bottom: 2rem;
+      text-align: center;
+      color: #ff6f3c;
+    }
+
+    form#investment-test {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .question h3 {
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      color: #ff6f3c;
+    }
+
+    .question label {
+      display: block;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #5a3e23;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+      border: 2px solid transparent;
+      user-select: none;
+      margin-bottom: 0.3rem;
+    }
+
+    .question input[type='radio'] {
+      margin-right: 10px;
+      accent-color: #ff6f3c;
+      cursor: pointer;
+    }
+
+    /* Cambio visual al seleccionar la opción */
+    .question input[type='radio']:checked + label,
+    .question label:hover {
+      background-color: #ffb38a;
+      color: #663300;
+      border-color: #ff6f3c;
+    }
+
+    /* Botón */
+    button.btn-submit {
+      align-self: center;
+      padding: 0.8rem 3rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: white;
+      background: #ff6f3c;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(255, 111, 60, 0.6);
+      transition: background-color 0.3s ease;
+    }
+
+    button.btn-submit:hover,
+    button.btn-submit:focus {
+      background-color: #ff7a52;
+      outline: none;
+    }
+
+    /* Resultado */
+    #result {
+      margin-top: 2rem;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #d64900;
+      text-align: center;
+      min-height: 3rem;
+      font-family: monospace;
+      letter-spacing: 0.05em;
+    }
+
+    /* Contacto */
+    section.contacto-simple {
+      max-width: 700px;
+      margin: 0 auto 4rem;
+      padding: 2rem 2rem 3rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(255, 111, 60, 0.15);
+    }
+
+    section.contacto-simple h2 {
+      text-align: center;
+      color: #ff6f3c;
+      margin-bottom: 1.5rem;
+    }
+
+    form.contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    form.contact-form label {
+      font-weight: 600;
+      color: #663300;
+      margin-bottom: 0.25rem;
+    }
+
+    form.contact-form input,
+    form.contact-form textarea {
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      border: 2px solid #ffb38a;
+      transition: border-color 0.3s ease;
+      resize: vertical;
+    }
+
+    form.contact-form input:focus,
+    form.contact-form textarea:focus {
+      border-color: #ff6f3c;
+      outline: none;
+      box-shadow: 0 0 8px #ff6f3c88;
+    }
+
+    form.contact-form button {
+      width: 140px;
+      align-self: center;
+      padding: 0.7rem 0;
+      font-weight: 700;
+      color: white;
+      background: #ff6f3c;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(255, 111, 60, 0.6);
+      transition: background-color 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    form.contact-form button:hover,
+    form.contact-form button:focus {
+      background-color: #ff7a52;
+      outline: none;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.8rem 1rem;
+      background: #ffb38a;
+      color: white;
+      font-weight: 600;
+      margin-top: auto;
+      user-select: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      nav.nav-links.horizontal {
+        gap: 0.8rem;
+      }
+
+      nav.nav-links.horizontal a.nav-link {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      section.test-section,
+      section.contacto-simple,
+      section.intro-section,
+      section.intro-continue {
+        margin: 1.5rem 1rem;
+        padding: 1.5rem 1.2rem;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+      }
+
+      h3 {
+        font-size: 1.2rem;Add commentMore actions
+      }
+    }
+  </style>
  
 </head>
 <link rel="stylesheet" href="css/style.css">
