@@ -150,12 +150,13 @@ button:hover {
 /* Footer */
 footer {
   background: #1f1f1f;
-  text-align: center;
+  text-align: center
   color: #666;
   font-size: 0.9rem;
   padding: 1.5rem 1rem;
   user-select: none;
 }
+
 
 /* Responsive */
 @media (max-width: 600px) {
